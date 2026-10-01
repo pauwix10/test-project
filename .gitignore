@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+.netlify
+
+# local before/after preview snapshots (scripts/snapshot.mjs)
+.preview/

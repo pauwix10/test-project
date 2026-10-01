@@ -1,0 +1,37 @@
+Bring the Ottawa pages up to the Spacefully LP practices; first-party photos
+
+The scaffold hotlinked the client's WordPress media library, and tcccanada.com
+has since been rebuilt on a new theme: all 29 of those URLs, logo included,
+return 404, so every photo on every track was broken. 27 of the 29 files were
+recovered from the Internet Archive - the scaffold's exact choices - and the
+two that were never archived were replaced with the client's own files
+(Laurier: the one surviving Laurier upload, an exterior; the Queensway mosaic
+slot: the day office already used on Meeting Rooms). A contact sheet of all
+21 photos was checked against their alt text; four location-card alts that
+said "Workspace" over a kitchen, lounges and now an exterior describe the
+frame instead.
+
+Photography pipeline (npm run images), after the HighQ and MYVO ones: WebP at
+each role's widths with srcset and intrinsic sizes, 1200x630 OG cards per
+track, favicons from the current brand mark, and - new here - it WRITES
+src/lib/pics.ts and each shell's hero preload from the files it produced, so
+neither can drift the way HighQ's hand-kept copy did. Sources stay outside
+the repo in ../tcc_images. Phones now get 400-700px heroes instead of 2560px
+JPEGs.
+
+Carried over from the other LPs:
+- PostHog, proxied first-party through /ph (rules above the catch-alls)
+- analytics push also calls gtag() when present: GA4 ignores bare dataLayer
+  pushes on a gtag page (HighQ)
+- links to #quote or any section work from outside (scrollToHash; MYVO still
+  lands them at the top)
+- body overflow-x: clip, FAQ overflow-anchor: none (HighQ's FAQ scroll bugs)
+- npm run preview (:4301, analytics stripped, GTM too, form posts logged not
+  sent) and npm run snapshot for before/after review
+- build guard: scripts/check-forms.mjs fails the build when a page posts a
+  field its Netlify stub lacks, instead of Netlify dropping it silently
+
+Verified on the built pages at 1440 and 390px: 0 broken images, 0 requests to
+tcccanada.com, 0 horizontal overflow, analytics absent in preview.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

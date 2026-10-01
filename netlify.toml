@@ -1,0 +1,91 @@
+# Netlify config, TCC Canada Ottawa landing pages.
+# Same playbook as officesuites-broadway-site: one canonical ads-only path per
+# track, noindex until the client says otherwise.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Paid landing pages must never be indexed. Belt and suspenders alongside the
+# HTML <meta robots> tag and robots.txt.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    # Don't leak the full landing URL (ad campaign query params) to third
+    # parties on outbound clicks - Calendly and OfficeRnD get origin only.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+# Vite fingerprints /assets/, so those cache forever.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Not fingerprinted: `npm run images` keeps a photo's name when it re-exports
+# it, so revalidate rather than cache forever.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# Open Graph cards: same reasoning as /images.
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Four tracks, four canonical ads URLs, matching the paths on tcccanada.com so
+# existing campaigns can be repointed by swapping the host only:
+#   /ottawa-office-space/  /ottawa-coworking-space/
+#   /ottawa-virtual-office/  /ottawa-meeting-rooms/
+# Each builds to a real dist/<track>/index.html (vite.config.ts), so they are
+# served statically and NOT by any rule below. A new track needs no change here.
+#
+# Do NOT add a rule with from = "/ottawa-office-space" to normalize the
+# no-slash form: Netlify ignores trailing slashes when matching `from`, so it
+# would 301 the track to itself, forever.
+
+# PostHog first-party proxy. The snippet in each shell points api_host at /ph
+# on this domain and these rewrites forward to PostHog's US cloud - ad blockers
+# key on *.posthog.com hostnames, so proxying recovers those visitors. The
+# /static rule must come first (array.js lives on the ASSETS host), and both
+# must stay ABOVE the root and catch-all redirects below, which would
+# otherwise swallow them.
+[[redirects]]
+  from = "/ph/static/*"
+  to = "https://us-assets.i.posthog.com/static/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/ph/*"
+  to = "https://us.i.posthog.com/:splat"
+  status = 200
+  force = true
+
+# TEMPORARY (client preview on the netlify.app domain): the root serves the
+# default track so a bare preview link just works. 302 on purpose - a 301 is
+# cached by every browser that sees it. When the custom domain goes live,
+# replace with:
+#   from = "/"  to = "https://www.tcccanada.com/"  status = 301  force = true
+[[redirects]]
+  from = "/"
+  to = "/ottawa-office-space/"
+  status = 302
+  force = true
+
+# Any other stray path is usually a mangled ad link; a track lands better than
+# the brochure site.
+[[redirects]]
+  from = "/*"
+  to = "/ottawa-office-space/"
+  status = 301

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Tag Manager: NOT INSTALLED YET. Paste the client's container
+         snippet here and the noscript iframe at the top of <body>, in all four
+         shells. GA4 belongs inside the container, not in this repo; each of
+         the five custom events in src/lib/analytics.ts then needs a Custom
+         Event trigger and a GA4 Event tag. If the client installs gtag.js
+         directly instead, the events reach GA4 with no tags, because
+         analytics.ts also calls gtag() when it exists. Never both: every event
+         would count twice. If Google Ads call tracking is added, its
+         phone_conversion_number must be "1-866-509-5052" exactly as printed
+         (SITE.phone in src/lib/site.ts). -->
+
+    <!-- LCP hero preload, WRITTEN by `npm run images` from the same data as
+         src/lib/pics.ts. It repeats the hero <img> in src/pages/MeetingRooms.tsx
+         (pic(HERO), sizes="100vw") exactly; any mismatch downloads it twice. -->
+    <link rel="preload" as="image" href="/images/group-1-1640.webp" imagesrcset="/images/group-1-400.webp 400w, /images/group-1-700.webp 700w, /images/group-1-1100.webp 1100w, /images/group-1-1600.webp 1600w, /images/group-1-1640.webp 1640w" imagesizes="100vw" fetchpriority="high" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet" />
+    <!-- PostHog (Spacefully's shared project phc_DPo5..., US cloud; sites are
+         told apart by hostname) - pageviews, autocapture and session replay,
+         with the custom events mirrored from src/lib/analytics.ts. The loader
+         is async and drops itself on error, so a blocked PostHog never holds
+         up render. api_host is /ph on whatever domain serves the page and
+         netlify.toml proxies it, because ad blockers key on *.posthog.com. -->
+    <script>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="an ln init xn Cn Br kn In capture Fn nn calculateEventProperties On register register_once register_for_session unregister unregister_for_session Ln getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Dn identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty An Rn createPersonProfile setInternalOrTestUser $n yn jn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Tn debug Ur Rt getPageViewId captureTraceFeedback captureTraceMetric pn".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      posthog.init('phc_DPo5C10qT4FTdLjETfgvxSoStH0zMG3GNgkRqZUyELX', {
+        api_host: location.origin + '/ph', // first-party proxy on whatever domain serves the page
+        ui_host: 'https://us.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+      })
+    </script>
+
+    <!-- No rates in the meta: pricing is gated on every track by client
+         instruction. Do not add a "from $X" figure here. -->
+    <title>Meeting Rooms and Event Space in Ottawa | TCC Canada</title>
+    <meta name="description" content="More than 20 meeting, training and event spaces across five TCC locations in Ottawa and Kanata, for 2 to 200 guests. Hybrid-ready, hosted, by the hour or day." />
+    <!-- Domain is a placeholder until the client confirms the landing host. -->
+    <link rel="canonical" href="https://tour.tcccanada.com/ottawa-meeting-rooms/" />
+    <!-- Remove noindex when the page moves from ads-only to organic -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Meeting Rooms and Event Space in Ottawa | TCC Canada" />
+    <meta property="og:description" content="More than 20 meeting, training and event spaces across five TCC locations in Ottawa and Kanata, for 2 to 200 guests. Hybrid-ready, hosted, by the hour or day." />
+    <meta property="og:site_name" content="TCC Canada" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tour.tcccanada.com/ottawa-meeting-rooms/" />
+    <meta property="og:image" content="https://tour.tcccanada.com/og/ottawa-meeting-rooms.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Conference room at The Blair Centre, Ottawa" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Netlify Forms build-time stub. Netlify only accepts submissions for a
+         form it finds in static HTML, and it cannot see the React form. Every
+         field the page's LeadForm posts must be listed here, or Netlify drops
+         its value silently. See src/lib/lead-form.tsx. -->
+    <form name="meeting-rooms-quote" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="space" />
+      <input name="location" />
+      <input name="date" />
+      <input name="name" />
+      <input name="email" />
+      <input name="gclid" />
+      <input name="campaignid" />
+      <input name="referrer" />
+      <input name="bot-field" />
+    </form>
+
+    <script type="module" src="/src/entries/ottawa-meeting-rooms.tsx"></script>
+  </body>
+</html>
